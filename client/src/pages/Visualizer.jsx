@@ -14,7 +14,8 @@ const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 export default function Visualizer() {
   const { id } = useParams();
-  const [algo, setAlgo] = useState(null);
+  const [loaded, setLoaded] = useState({ id: null, data: null });
+  const algo = loaded.id === id ? loaded.data : undefined;
   const [initial] = useState(() => randomArray());
   const [array, setArray] = useState(initial);
   const [target, setTarget] = useState(() => pick(initial));
@@ -24,7 +25,11 @@ export default function Visualizer() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    getAlgorithm(id).then(({ data }) => setAlgo(data));
+    let active = true;
+    getAlgorithm(id).then(({ data }) => {
+      if (active) setLoaded({ id, data });
+    });
+    return () => { active = false; };
   }, [id]);
 
   const isSearch = algo?.category === "Searching";
@@ -67,8 +72,18 @@ export default function Visualizer() {
     setTarget(pick(a));
   };
 
-  if (!algo) {
+  if (algo === undefined) {
     return <main className="container page"><p className="muted">Loading...</p></main>;
+  }
+
+  if (algo === null) {
+    return (
+      <main className="container page">
+        <h2>Algorithm not found</h2>
+        <p className="muted">We couldn't find "{id}".</p>
+        <Link to="/explore" className="btn btn-primary" style={{ marginTop: 16 }}>Back to Explore</Link>
+      </main>
+    );
   }
 
   return (

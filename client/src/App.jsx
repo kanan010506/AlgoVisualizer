@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar.jsx";
 import Home from "./pages/Home.jsx";
 import Explore from "./pages/Explore.jsx";
 import Visualizer from "./pages/Visualizer.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/visualizer/:id" element={<Visualizer />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

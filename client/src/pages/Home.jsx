@@ -27,6 +27,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <Link to="/explore" className="btn btn-primary">Explore Algorithms →</Link>
+            <Link to="/visualizer/bubble-sort" className="btn btn-ghost">▶ Try Bubble Sort</Link>
           </div>
         </div>
 
