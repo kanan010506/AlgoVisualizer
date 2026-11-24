@@ -10,6 +10,7 @@ export default function Navbar() {
         <nav className="nav-links">
           <NavLink to="/" end>Home</NavLink>
           <NavLink to="/explore">Explore Algorithms</NavLink>
+          <NavLink to="/compare">Compare</NavLink>
         </nav>
         <Link to="/explore" className="btn btn-primary">Explore Algorithms</Link>
       </div>

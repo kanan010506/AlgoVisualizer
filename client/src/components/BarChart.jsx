@@ -1,11 +1,11 @@
-export default function BarChart({ step }) {
-  const max = Math.max(...step.array);
+export default function BarChart({ step, variant = "" }) {
+  const max = Math.max(...step.array, 1);
   const marked = step.marked || [];
   const eliminated = step.eliminated || [];
   const p = step.pointers;
 
   return (
-    <div className="bars">
+    <div className={`bars ${variant ? `bars-${variant}` : ""}`}>
       {step.array.map((v, i) => {
         let state = "idle";
         if (step.found === i) state = "found";
@@ -19,16 +19,31 @@ export default function BarChart({ step }) {
           : "";
 
         return (
-          <div className="bar-col" key={i}>
-            <div className="bar-area">
-              <div className="bar-wrap" style={{ height: `${(v / max) * 100}%` }}>
-                <span className="bar-value">{v}</span>
-                <div className={`bar ${state}`} />
+          variant === "compare" ? (
+            <div className="bar-col compare-bar-col" key={i}>
+              <div className="compare-bar-area">
+                <div
+                  className="compare-bar-wrap"
+                  style={{ height: `${(v / max) * 100}%` }}
+                >
+                  <span className="bar-value">{v}</span>
+                  <div className={`bar ${state}`} />
+                </div>
               </div>
+              <span className="bar-index">{i}</span>
             </div>
-            <span className="bar-index">{i}</span>
-            {p && <span className="bar-tag">{tags || "\u00A0"}</span>}
-          </div>
+          ) : (
+            <div className="bar-col" key={i}>
+              <div className="bar-area">
+                <div className="bar-wrap" style={{ height: `${(v / max) * 100}%` }}>
+                  <span className="bar-value">{v}</span>
+                  <div className={`bar ${state}`} />
+                </div>
+              </div>
+              <span className="bar-index">{i}</span>
+              {p && <span className="bar-tag">{tags || "\u00A0"}</span>}
+            </div>
+          )
         );
       })}
     </div>

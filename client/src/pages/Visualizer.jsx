@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { getAlgorithm } from "../api/algorithms.js";
 import { engines } from "../algorithms/index.js";
 import usePlayer from "../hooks/usePlayer.js";
-import BarChart from "../components/BarChart.jsx";
+import BarPanel from "../components/BarPanel.jsx";
 import Controls from "../components/Controls.jsx";
 import PseudocodePanel from "../components/PseudocodePanel.jsx";
 import StatsPanel from "../components/StatsPanel.jsx";
@@ -118,7 +118,7 @@ export default function Visualizer() {
             {isGraph ? (
               <GraphView step={player.step} />
             ) : (
-              <BarChart step={player.step} />
+              <BarPanel step={player.step} />
             )}
 
             <div className="legend-row">
