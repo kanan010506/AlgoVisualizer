@@ -122,7 +122,7 @@ export default function Visualizer() {
                   <span><i className="dot idle" />Unsorted</span>
                   <span><i className="dot compare" />Comparing</span>
                   <span><i className="dot swap" />Swapping</span>
-                  <span><i className="dot marked" />Min / Key</span>
+                  <span><i className="dot marked" />Pivot / Min / Key</span>
                   <span><i className="dot sorted" />Sorted</span>
                 </>
               )}
