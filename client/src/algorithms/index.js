@@ -1,6 +1,8 @@
 import bubbleSort from "./bubbleSort.js";
 import selectionSort from "./selectionSort.js";
 import insertionSort from "./insertionSort.js";
+import heapSort from "./heapSort.js";
+import shellSort from "./shellSort.js";
 import quickSort from "./quickSort.js";
 import mergeSort from "./mergeSort.js";
 import linearSearch from "./linearSearch.js";
@@ -12,6 +14,8 @@ export const engines = {
   "bubble-sort": bubbleSort,
   "selection-sort": selectionSort,
   "insertion-sort": insertionSort,
+  "heap-sort": heapSort,
+  "shell-sort": shellSort,
   "quick-sort": quickSort,
   "merge-sort": mergeSort,
   "linear-search": linearSearch,
