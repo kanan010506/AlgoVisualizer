@@ -132,6 +132,44 @@ const algorithms = [
     ],
     complexity: { best: "O(1)", average: "O(log n)", worst: "O(log n)", space: "O(1)" },
   },
+  {
+    id: "graph-bfs",
+    name: "Breadth-First Search",
+    category: "Graph",
+    description:
+      "Traverses a graph level by level, visiting every reachable neighbor from a starting node before moving deeper.",
+    pseudocode: [
+      "enqueue(start)",
+      "mark start as visited",
+      "while queue is not empty",
+      "  current = dequeue()",
+      "  visit(current)",
+      "  for each neighbor of current",
+      "    if neighbor is not visited",
+      "      mark neighbor as visited",
+      "      enqueue(neighbor)",
+    ],
+    complexity: { best: "O(V+E)", average: "O(V+E)", worst: "O(V+E)", space: "O(V)" },
+  },
+  {
+    id: "graph-dfs",
+    name: "Depth-First Search",
+    category: "Graph",
+    description:
+      "Traverses a graph deeply along each branch, using a stack or recursion to explore one path before backtracking.",
+    pseudocode: [
+      "push(start)",
+      "while stack is not empty",
+      "  current = pop()",
+      "  if current is already visited",
+      "    continue",
+      "  mark current as visited",
+      "  for each neighbor of current",
+      "    if neighbor is not visited",
+      "      push(neighbor)",
+    ],
+    complexity: { best: "O(V+E)", average: "O(V+E)", worst: "O(V+E)", space: "O(V)" },
+  },
 ];
 
 export default algorithms;

@@ -5,6 +5,8 @@ import quickSort from "./quickSort.js";
 import mergeSort from "./mergeSort.js";
 import linearSearch from "./linearSearch.js";
 import binarySearch from "./binarySearch.js";
+import bfs from "./bfs.js";
+import dfs from "./dfs.js";
 
 export const engines = {
   "bubble-sort": bubbleSort,
@@ -14,4 +16,6 @@ export const engines = {
   "merge-sort": mergeSort,
   "linear-search": linearSearch,
   "binary-search": binarySearch,
+  "graph-bfs": bfs,
+  "graph-dfs": dfs,
 };

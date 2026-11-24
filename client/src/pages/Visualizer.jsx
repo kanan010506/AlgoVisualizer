@@ -7,6 +7,8 @@ import BarChart from "../components/BarChart.jsx";
 import Controls from "../components/Controls.jsx";
 import PseudocodePanel from "../components/PseudocodePanel.jsx";
 import StatsPanel from "../components/StatsPanel.jsx";
+import GraphView from "../components/GraphView.jsx";
+import { bfsGraph } from "../algorithms/bfs.js";
 
 const SPEEDS = [1200, 800, 500, 250, 100];
 const randomArray = (n = 8) => Array.from({ length: n }, () => Math.floor(Math.random() * 90) + 5);
@@ -33,6 +35,8 @@ export default function Visualizer() {
   }, [id]);
 
   const isSearch = algo?.category === "Searching";
+  const isGraph = algo?.category === "Graph";
+  const isDfs = id === "graph-dfs";
   const needsSorted = id === "binary-search";
 
   const view = useMemo(
@@ -41,7 +45,11 @@ export default function Visualizer() {
   );
 
   const engine = engines[id];
-  const steps = useMemo(() => (engine ? engine(view, target) : []), [engine, view, target]);
+  const engineInput = isGraph ? bfsGraph : view;
+  const steps = useMemo(
+    () => (engine && algo ? engine(engineInput, isGraph ? "A" : target) : []),
+    [engine, engineInput, isGraph, target, algo]
+  );
   const player = usePlayer(steps, SPEEDS[speed - 1]);
 
   const applyInput = () => {
@@ -107,10 +115,21 @@ export default function Visualizer() {
       ) : (
         <div className="viz-grid">
           <div className="card viz-card">
-            <BarChart step={player.step} />
+            {isGraph ? (
+              <GraphView step={player.step} />
+            ) : (
+              <BarChart step={player.step} />
+            )}
 
             <div className="legend-row">
-              {isSearch ? (
+              {isGraph ? (
+                <>
+                  <span><i className="dot idle" />Unvisited</span>
+                  <span><i className="dot queue" />{isDfs ? "In stack" : "In queue"}</span>
+                  <span><i className="dot current" />Current</span>
+                  <span><i className="dot sorted" />Visited</span>
+                </>
+              ) : isSearch ? (
                 <>
                   <span><i className="dot idle" />Not checked</span>
                   <span><i className="dot compare" />Checking</span>
@@ -132,16 +151,18 @@ export default function Visualizer() {
 
             <Controls player={player} speed={speed} setSpeed={setSpeed} />
 
-            <div className="array-input">
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && applyInput()}
-                placeholder="Custom array, e.g. 5, 3, 8, 1"
-              />
-              <button className="btn btn-ghost" onClick={applyInput}>Apply</button>
-              <button className="btn btn-ghost" onClick={randomize}>Random</button>
-            </div>
+            {!isGraph && (
+              <div className="array-input">
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && applyInput()}
+                  placeholder="Custom array, e.g. 5, 3, 8, 1"
+                />
+                <button className="btn btn-ghost" onClick={applyInput}>Apply</button>
+                <button className="btn btn-ghost" onClick={randomize}>Random</button>
+              </div>
+            )}
 
             {isSearch && (
               <div className="array-input">
